@@ -57,18 +57,19 @@ public class xDrive extends LinearOpMode {
             }
 
             // Uses the Method to set all motor powers then Ten Telemetry to see how much power each is getting
-            robot.setDriveMotorPower(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
+            robot.setDriveMotorPower(rightFrontPower, leftBackPower, rightBackPower); // removed leftFront Because did not have expansion hub on at the time and needed to test
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
+            telemetry.addData("Front left/Right", "%4.2f", rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
-            telemetry.update();
 
             // Uses the ArmStage Method to increase the stage if X is pressed and decrease if a is pressed
-            telemetry.addData("Arm Motor Loc:", "%7d", robot.armMotor.getCurrentPosition());
-            telemetry.update();
+            telemetry.addData("Arm Motor Locat:", "%7d", robot.armMotor.getCurrentPosition());
 
-            robot.ArmStageIncrease(gamepad1.x);
-            robot.ArmStageDecrease(gamepad1.a);
+            robot.ArmStageIncrease(gamepad1.x, 20);
+            robot.ArmStageDecrease(gamepad1.a, 20);
+
+            telemetry.addData("Stage", "%7d", robot.stage);
+            telemetry.update();
         }
     }
 }
