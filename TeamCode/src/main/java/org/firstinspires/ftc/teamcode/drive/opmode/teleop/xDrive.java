@@ -17,6 +17,8 @@ public class xDrive extends LinearOpMode {
         // Init the robot hardware map(Motors servos)
         robot.init(hardwareMap);
 
+
+
         // Update Driver Hub or Phone that the robot is ready to run
         telemetry.addData("Status:", "Ready to Run");
         telemetry.update();
@@ -65,8 +67,11 @@ public class xDrive extends LinearOpMode {
             // Uses the ArmStage Method to increase the stage if X is pressed and decrease if a is pressed
             telemetry.addData("Arm Motor Locat:", "%7d", robot.armMotor.getCurrentPosition());
 
-            robot.ArmStageIncrease(gamepad1.x, 20);
-            robot.ArmStageDecrease(gamepad1.a, 20);
+            robot.ArmStageIncrease(gamepad1.x);
+            robot.ArmStageDecrease(gamepad1.a);
+            robot.ArmSetStage0(gamepad1.b);
+
+
 
             telemetry.addData("Stage", "%7d", robot.stage);
             telemetry.update();
