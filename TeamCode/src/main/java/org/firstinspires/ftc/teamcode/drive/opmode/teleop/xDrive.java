@@ -80,51 +80,42 @@ public class xDrive extends LinearOpMode {
 
             //First make sures the motor is not busy
             if (!robot.armMotor.isBusy()){
-                // Checks if the user has pressed gamepad button
+                // checks if the user hit the button and if its greater then 0 then goes down a stage
+                if (gamepad1.a && stage > 0) {
+                    stage--;
+                }
+
+                // Checks if the user has pressed gamepad button and goes up a stage
                 if (gamepad1.x && stage < 3) {
 
                     //Add increase the stage
                     stage++;
-
-                    //Checks for each stage and sets the robots height to that stage
-                    if (stage == 1) {
-                        robot.ArmToPosition(robot.TURN_SPEED, stage1Length);
-                    }
-
-                    else if (stage == 2) {
-                        robot.ArmToPosition(robot.TURN_SPEED, stage2Length);
-                    }
-
-                    else if (stage == 3) {
-                        robot.ArmToPosition(robot.TURN_SPEED, stage3Legnth);
-                    }
-
                 }
+
+
+                if (stage == 0){
+                    robot.armMotor.setTargetPosition(stage0);
+                    robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                }
+
+                //Checks for each stage and sets the robots height to that stage
+                if (stage == 1) {
+                    robot.ArmToPosition(robot.TURN_SPEED, stage1Length);
+                }
+
+                else if (stage == 2) {
+                    robot.ArmToPosition(robot.TURN_SPEED, stage2Length);
+                }
+
+                else if (stage == 3) {
+                    robot.ArmToPosition(robot.TURN_SPEED, stage3Legnth);
+                }
+
             }
 
             //Same thing as the increase but decreases
             if (!robot.armMotor.isBusy()) {
-                if (gamepad1.a && stage >= 0) {
-                    stage--;
-                    // Sets Turn Speed to Negative so motor rewinds
-                    if (stage == 0){
-                        robot.armMotor.setTargetPosition(stage0);
-                        robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    }
 
-                    if (stage == 1) {
-                        robot.ArmToPosition(robot.TURN_SPEED, -stage1Length);
-                    }
-
-                    else if (stage == 2) {
-                        robot.ArmToPosition(robot.TURN_SPEED, -stage2Length);
-                    }
-
-                    else if (stage == 3) {
-                        robot.ArmToPosition(robot.TURN_SPEED, -stage3Legnth);
-                    }
-
-                }
             }
             //Sets Stage to 0 and sets the robot position to the original saved position
             if (gamepad1.b) {
@@ -132,29 +123,11 @@ public class xDrive extends LinearOpMode {
                 robot.ArmToPosition(robot.TURN_SPEED, stage0Length);
             }
 
-            //ArmStageIncrease();  Note: Was commented out
-            //ArmStageDecrease();
 
             telemetry.addData("Stage", "%7d", stage);
             telemetry.update();
 
-
-            // Commented this out for now
-            // Method to increase the Arm for each stage check using a button
-        /*public void ArmStageIncrease() {
-            // Checks if the button then adds one to the stage
-            // checks what stage the stage is on then multiples the length but that amount
-        }*/
-
-            // Same method But decreases the Stage
-        /*public void ArmStageDecrease(){
-            // Make sure the Stage is not zero and rewinding
-        }*/
-
-
-        /*public void ArmSetStage0(){
-            stage0 = robot.armMotor.getCurrentPosition();
-        */}
+        }
 
     }
 }

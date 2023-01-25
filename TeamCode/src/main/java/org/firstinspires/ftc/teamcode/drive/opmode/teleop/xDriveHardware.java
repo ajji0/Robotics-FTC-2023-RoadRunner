@@ -16,7 +16,7 @@ public class xDriveHardware{
     //Arm motor variable for spool
     public DcMotor armMotor = null;
 
-    //Place holder variable for when a servo is added to robot
+    //Servo on robot that rotates the claw up or down
     public Servo claw = null;
 
     public int startPosition = 0;
@@ -30,7 +30,7 @@ public class xDriveHardware{
 
     // Spools Turn speed
     public static double     TURN_SPEED              = 0.7;
-    
+
     // Stage Length of linear slide stage in inches
 
 
@@ -57,8 +57,8 @@ public class xDriveHardware{
 
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
-        claw = hwMap.get(Servo.class, "claw");
 
+        claw = hwMap.get(Servo.class, "claw");
 
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -100,7 +100,7 @@ public class xDriveHardware{
         armMotor.setPower(allPower);
     }
 
-    // Moves the arm to the inches passed as parameters
+    // Moves the arm to the inches passed, Note:Sets the position to the inches Example-- If 20 is passed moves it to 20 then if 30 moves it to 30
     public void ArmToPosition(double speed, double Inches){
         int newTarget;
 
